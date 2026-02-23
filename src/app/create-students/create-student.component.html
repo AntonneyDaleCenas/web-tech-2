@@ -1,24 +1,49 @@
-<header class="page-header">
-  <h1>Create Student</h1>
-</header>
+<h2>Create Student</h2>
 
-<main class="form-container">
-  <form (ngSubmit)="submitForm()">
-    <label>
-      Student Name
-      <input type="text" [(ngModel)]="student.name" name="name" required />
-    </label>
+<form [formGroup]="form" (ngSubmit)="createStudent()">
 
-    <label>
-      Course
-      <input type="text" [(ngModel)]="student.course" name="course" required />
-    </label>
+  <label>First Name</label>
+  <input type="text" formControlName="first_name">
+  <div *ngIf="form.get('first_name')?.touched && form.get('first_name')?.invalid">
+    First Name is required.
+  </div>
 
-    <label>
-      Year Level
-      <input type="text" [(ngModel)]="student.year" name="year" required />
-    </label>
+  <label>Last Name</label>
+  <input type="text" formControlName="last_name">
+  <div *ngIf="form.get('last_name')?.touched && form.get('last_name')?.invalid">
+    Last Name is required.
+  </div>
 
-    <button type="submit">Save Student</button>
-  </form>
-</main>
+  <label>Email</label>
+  <input type="email" formControlName="email">
+  <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+    <div *ngIf="form.get('email')?.errors?.['required']">Email is required.</div>
+    <div *ngIf="form.get('email')?.errors?.['email']">Email must be valid.</div>
+  </div>
+
+  <label>Age</label>
+  <input type="number" formControlName="age">
+  <div *ngIf="form.get('age')?.touched && form.get('age')?.invalid">
+    Age is required.
+  </div>
+
+  <label>Course</label>
+  <input type="text" formControlName="course">
+  <div *ngIf="form.get('course')?.touched && form.get('course')?.invalid">
+    Course is required.
+  </div>
+
+  <label>Year Level</label>
+  <input type="number" formControlName="year_level">
+  <div *ngIf="form.get('year_level')?.touched && form.get('year_level')?.invalid">
+    Year Level is required.
+  </div>
+
+  <label>GPA</label>
+  <input type="number" formControlName="gpa" step="0.01">
+  <div *ngIf="form.get('gpa')?.touched && form.get('gpa')?.invalid">
+    GPA is required.
+  </div>
+
+  <button type="submit" (click)="createStudent()">Create Student</button>
+</form>

@@ -5,18 +5,22 @@
 
 <main class="students-container">
   <!-- Show student cards -->
-  <article class="student-card" *ngFor="let student of students; let i = index">
-    <div class="student-info">
-      <h2>{{ student.name }}</h2>
-      <p><strong>Course:</strong> {{ student.course }}</p>
-      <p><strong>Year Level:</strong> {{ student.year }}</p>
-    </div>
-
-    <button class="delete-btn" (click)="deleteStudent(i)">Delete</button>
-  </article>
+   @for (student of students(); track student.id; let index = $index) {
+     <article class="student-card">
+       <div class="student-info">
+         <h2>{{ student.first_name }} {{ student.last_name }}</h2>
+         <p><strong>Course:</strong> {{ student.course }}</p>
+         <p><strong>Year Level:</strong> {{ student.year_level }}</p>
+       </div>
+   
+       <button class="delete-btn" (click)="deleteStudent(index)">Delete</button>
+     </article>
+   }
 
   <!-- Empty state -->
-  <p *ngIf="students.length === 0" class="empty-msg">
-    No students available. Add one!
-  </p>
+   @if (students().length === 0) {
+     <p class="empty-msg">
+       No students available. Add one!
+     </p>
+   }
 </main>
